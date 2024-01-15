@@ -1,0 +1,514 @@
+body {
+  background-image: url(assets/background.jpg);
+  background-size: auto;
+  background-position: center;
+  font-family: Lato, sans-serif;
+  color: #191970;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100%;
+  height: 10vh;
+  border-radius: 40px;
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.interactive-hangman__tool {
+  position: relative;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.hangman-tool {
+  width: 50vw;
+  max-width: 720px;
+  height: auto;
+  object-fit: cover;
+}
+
+.head,
+.body,
+.left-hand,
+.right-hand,
+.left-leg,
+.right-leg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.head {
+  top: 29%;
+  left: 58%;
+  width: 15%;
+}
+
+.body {
+  top: 46%;
+  left: 61%;
+  width: 10%;
+}
+
+.left-hand,
+.right-hand,
+.left-leg,
+.right-leg {
+  width: 8%;
+}
+
+.left-hand {
+  top: 50%;
+  left: 56%;
+}
+
+.right-hand {
+  top: 50%;
+  left: 68%;
+}
+
+.left-leg {
+  top: 65%;
+  left: 59%;
+  transform: scaleX(-1);
+}
+
+.right-leg {
+  top: 64%;
+  left: 67%;
+}
+
+.word-guessing-dashboard {
+  margin-top: 40px;
+  width: 50vw;
+  border-radius: 40px;
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  height: auto;
+}
+
+.word-guessing-dashboard__word {
+  margin: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 30px;
+  height: 10vh;
+  background-color: aliceblue;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  border: 1px solid #191970;
+}
+
+.word-guessing-dashboard__word__letter {
+  width: 40px;
+  height: 2px;
+  background-color: #191970;
+}
+
+.word-guessing-dashboard__word__active-letter {
+  color: #191970;
+  font-size: xx-large;
+  font-weight: 600;
+  transition: all 0.7s ease;
+}
+
+.word-guessing-dashboard__hint {
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  font-size: 32px;
+}
+
+.word-guessing-dashboard__count-of-guesses {
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  font-size: 28px;
+}
+
+.word-guessing-dashboard__count-of-guesses__text-of-number {
+  display: flex;
+  flex-direction: row;
+}
+
+.word-guessing-dashboard__keyboard {
+  margin: 40px;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+}
+
+.word-guessing-dashboard__keyboard__button {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: Lato, sans-serif;
+  color: #191970;
+  background-color: aliceblue;
+  border: 1px solid #191970;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.inactive {
+  color: aliceblue;
+  background-color: #191970;
+  cursor: none;
+}
+
+.wrong {
+  color: black;
+  background-color: red;
+  cursor: none;
+}
+
+.word-guessing-dashboard__keyboard__button:hover {
+  color: aliceblue;
+  background-color: #191970;
+}
+
+.wrong:hover {
+  color: black;
+  background-color: red;
+}
+
+.word-guessing-dashboard__hint__word {
+  margin-right: 5px;
+}
+
+/* MODAL WINDOW */
+
+.modal-window-container,
+.keyboard-modal-window-container {
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(139, 137, 133, 0.8);
+  z-index: 9998;
+  display: none;
+}
+
+.modal-window,
+.keyboard-modal-window {
+  z-index: 100;
+  position: absolute;
+  border-radius: 100px;
+  height: max-content;
+  width: auto;
+  box-sizing: border-box;
+  position: relative;
+  padding: 20px;
+  background: rgb(97, 176, 236);
+  background: radial-gradient(
+    circle,
+    rgba(97, 176, 236, 1) 0%,
+    rgba(148, 210, 233, 0.8562018557422969) 100%
+  );
+  border: 1.5px solid #191970;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.modal-window__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.happy-head,
+.sad-head,
+.keyboard-image {
+  width: 15vw;
+  height: auto;
+}
+
+.modal-window__main__title {
+  font-size: xx-large;
+  text-align: center;
+}
+
+.modal-window__question {
+  font-size: x-large;
+  font-weight: 600;
+  color: #266686;
+  text-align: center;
+}
+
+.modal-window__right-word,
+.keyboard-modal-window__warning {
+  font-size: xx-large;
+  font-weight: 900;
+  color: #191970;
+  text-align: center;
+}
+
+.modal-window__main__button {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  border: 1.5px solid #266686;
+  cursor: pointer;
+  background: rgb(214, 244, 251);
+  background: radial-gradient(
+    circle,
+    rgba(214, 244, 251, 1) 0%,
+    rgba(206, 218, 230, 1) 100%
+  );
+  font-family: Lato, sans-serif;
+  color: #191970;
+  font-size: large;
+  font-weight: 900;
+  transition: all 0.5s ease;
+}
+
+.modal-window__main__button:hover {
+  background: rgb(95, 143, 215);
+  background: radial-gradient(
+    circle,
+    rgba(95, 143, 215, 1) 0%,
+    rgba(0, 62, 163, 1) 100%
+  );
+  color: rgb(214, 244, 251);
+}
+
+@media screen and (max-width: 1100px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .word-guessing-dashboard {
+    margin-top: 20px;
+    width: 90vw;
+  }
+
+  .word-guessing-dashboard__word {
+    margin-bottom: 5px;
+
+  }
+
+  .word-guessing-dashboard__hint__word,
+  .word-guessing-dashboard__hint__content {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .word-guessing-dashboard__hint__content {
+    margin-left: 10px;
+  }
+
+}
+
+@media screen and (max-width: 697px) {
+  header {
+    height: min-content;
+  }
+
+  .title-of-game {
+    font-size: larger;
+  }
+
+  .word-guessing-dashboard {
+    margin: 0;
+  }
+
+  .hangman-tool {
+    width: 80vw;
+  }
+
+  .word-guessing-dashboard__word {
+    margin: 5px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-content: space-around;
+  }
+
+  .word-guessing-dashboard__word__letter {
+    width: 18px;
+  }
+
+  .word-guessing-dashboard__hint {
+    margin: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: large;
+  }
+
+  .word-guessing-dashboard__hint__word,
+  .word-guessing-dashboard__hint__content {
+    margin: 10px;
+  }
+
+  .word-guessing-dashboard__count-of-guesses {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: medium;
+  }
+
+  .word-guessing-dashboard__keyboard {
+    margin: 5px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+  }
+
+  .word-guessing-dashboard__keyboard__button {
+    width: 30px;
+    height: 30px;
+    font-size: medium;
+  }
+
+  .modal-window {
+    max-width: 90vw;
+  }
+
+  .word-guessing-dashboard__word__active-letter {
+    font-size: medium;
+  }
+
+  .head {
+    top: 29%;
+    left: 58%;
+    width: 15%;
+  }
+
+  .body {
+    top: 46%;
+    left: 61%;
+    width: 10%;
+  }
+
+  .left-hand,
+  .right-hand,
+  .left-leg,
+  .right-leg {
+    width: 8%;
+  }
+
+  .left-hand {
+    top: 50%;
+    left: 56%;
+  }
+
+  .right-hand {
+    top: 50%;
+    left: 68%;
+  }
+
+  .left-leg {
+    top: 65%;
+    left: 59%;
+    transform: scaleX(-1);
+  }
+
+  .right-leg {
+    top: 64%;
+    left: 67%;
+  }
+
+  .keyboard-modal-window {
+    width: 90vw;
+  }
+}
+
+@media screen and (max-width: 389px) {
+  .word-guessing-dashboard__keyboard {
+    margin: 5px;
+    margin-bottom: 20px;
+  }
+
+  .hangman-tool {
+    width: 65vw;
+  }
+
+  .head {
+    top: 29%;
+    left: 58%;
+    width: 15%;
+  }
+
+  .body {
+    top: 46%;
+    left: 61%;
+    width: 10%;
+  }
+
+  .left-hand,
+  .right-hand,
+  .left-leg,
+  .right-leg {
+    width: 8%;
+  }
+
+  .left-hand {
+    top: 50%;
+    left: 56%;
+  }
+
+  .right-hand {
+    top: 50%;
+    left: 68%;
+  }
+
+  .left-leg {
+    top: 65%;
+    left: 59%;
+    transform: scaleX(-1);
+  }
+
+  .right-leg {
+    top: 64%;
+    left: 67%;
+  }
+
+  .keyboard-modal-window {
+    width: 90vw;
+  }
+}
